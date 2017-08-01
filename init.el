@@ -52,7 +52,7 @@ values."
               chinese-default-input-method 'Chinese-pyim
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t
-     	      chinese-enable-avy-pinyin nil)
+              chinese-enable-avy-pinyin nil)
      emacs-lisp
      git
      markdown
@@ -69,7 +69,10 @@ values."
      (shell :variables
             shell-default-height 30
             shell-default-position 'bottom)
-     spell-checking
+     (spell-checking :variables
+                     spell-checking-enable-auto-dictionary t
+                     spell-checking-enable-by-default t
+                     enable-flyspell-auto-completion t)
      syntax-checking
      version-control
      )
@@ -329,6 +332,10 @@ before packages are loaded. If you are unsure, you should try in setting them in
       '(("melpa-cn" . "https://elpa.emacs-china.org/melpa/")
         ("org-cn"   . "https://elpa.emacs-china.org/org/")
         ("gnu-cn"   . "https://elpa.emacs-china.org/gnu/")))
+
+  (setq-default git-magit-status-fullscreen t)
+  (setq magit-repository-directories '("~/piav2/" "~/.spacemacs.d"))
+  (global-git-commit-mode t)
 )
 
 (defun dotspacemacs/user-config ()
@@ -343,6 +350,11 @@ you should place your code here."
   (when (configuration-layer/layer-usedp 'chinese)
     (when (and (spacemacs/system-is-mac) window-system)
       (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+
+  (when (configuration-layer/layer-usedp 'chinese)
+    (when (and (spacemacs/system-is-linux) window-system)
+      (spacemacs//set-monospaced-font "Source Code Pro" "Hiragino Sans GB" 14 16)))
+
 
   ;; Setting Chinese Font
   (when (and (spacemacs/system-is-mswindows) window-system)
