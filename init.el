@@ -31,7 +31,6 @@ values."
    ;; List of configuration layers to load.
    dotspacemacs-configuration-layers
    '(
-     html
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -46,7 +45,9 @@ values."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t)
      better-defaults
+     cscope
      helm
+     html
      (chinese :packages  youdao-dictionary fcitx
               :variables
               chinese-default-input-method 'Chinese-pyim
@@ -73,7 +74,11 @@ values."
                      spell-checking-enable-auto-dictionary t
                      spell-checking-enable-by-default t
                      enable-flyspell-auto-completion t)
-     syntax-checking
+     (syntax-checking :variables
+                      syntax-checking-enable-tooltips t
+                      syntax-checking-enable-by-default t
+                      syntax-checking-use-original-bitmaps t
+                      )
      version-control
      )
    ;; List of additional packages that will be installed without being
@@ -383,6 +388,8 @@ you should place your code here."
   (spacemacs|diminish counsel-mode)
 
   (evilified-state-evilify-map special-mode-map :mode special-mode)
+
+  (define-key global-map (kbd "C-c y") 'youdao-dictionary-search-at-point+)
   )
 
 
