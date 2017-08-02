@@ -1,0 +1,206 @@
+#+title: Spacemacs source code learn and how to configure it
+
+* 初始化
+**  垃圾回收机制设置内存为100M
+
+   #+BEGIN_SRC emacs-lisp
+     (setq gc-cons-threshold 100000000)
+   #+END_SRC
+
+
+** 版本变量定义
+
+   #+BEGIN_SRC emacs-lisp
+     (defconst spacemacs-version          "0.200.9" "Spacemacs version.")
+     (defconst spacemacs-emacs-min-version   "24.4" "Minimal version of Emacs.")
+   #+END_SRC
+
+** Emacs 版本判断, 必须大于24.4以上, 否则报错,  加载core/core-load-paths.el 文件 
+
+   #+BEGIN_SRC emacs-lisp
+     (if (not (version<= spacemacs-emacs-min-version emacs-version))
+         (error (concat "Your version of Emacs (%s) is too old. "
+                        "Spacemacs requires Emacs version %s or above.")
+                emacs-version spacemacs-emacs-min-version)
+                (load-file (concat (file-name-directory load-file-name)
+                                   "core/core-load-paths.el"))
+       )
+
+   #+END_SRC
+
+** core/core-load-path.el 文件解读
+
+*** 定义函数 add-to-load-path (dir)
+    #+BEGIN_SRC emacs-lisp
+    (defun add-to-load-path (dir) (add-to-list 'load-path dir))
+    #+END_SRC
+
+*** 定义函数 add-to-load-path-if-exists (dir)
+
+    #+BEGIN_SRC emacs-lisp
+      (defun add-to-load-path-if-exists (dir)
+        "If DIR exists in the file system, add it to `load-path'."
+        (when (file-exists-p dir)
+          (add-to-load-path dir)))
+    #+END_SRC
+
+*** 定义变量 spacemacs-start-dictionary
+    #+BEGIN_SRC emacs-lisp
+      (defvar spacemacs-start-directory
+        user-emacs-directory
+        "Spacemacs start directory.")
+    #+END_SRC
+
+*** 定义变量 spacemacs-core-directory 
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-core-directory
+        (expand-file-name (concat spacemacs-start-directory "core/"))
+        "Spacemacs core directory.")
+    #+END_SRC
+
+*** 定义变量 spacemacs-info-directory 
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-info-directory
+        (expand-file-name (concat spacemacs-core-directory "info/"))
+        "Spacemacs info files directory")
+    #+END_SRC
+
+*** 定义变量 spacemacs-release-notes-directory
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-release-notes-directory
+        (expand-file-name (concat spacemacs-info-directory "release-notes/"))
+        "Spacemacs release notes directory")
+    #+END_SRC
+
+*** 定义变量 spacemacs-banner-directory 
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-banner-directory
+        (expand-file-name (concat spacemacs-core-directory "banners/"))
+        "Spacemacs banners directory.")
+    #+END_SRC
+
+*** 定义变量 spacemacs-banners-official-png
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-banner-official-png
+        (expand-file-name (concat spacemacs-banner-directory "img/spacemacs.png"))
+        "Spacemacs official banner image.")
+    #+END_SRC
+
+*** 定义变量 spacemacs-badge-official-png
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-badge-official-png
+        (expand-file-name (concat spacemacs-banner-directory
+                                  "img/spacemacs-badge.png"))
+        "Spacemacs official badge image.")
+    #+END_SRC
+
+*** 定义变量 spacemacs-purple-heart-png
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-purple-heart-png
+        (expand-file-name (concat spacemacs-banner-directory "img/heart.png"))
+        "Purple heart emoji.")
+
+    #+END_SRC
+
+*** 定义变量 spacemacs-cache-directory 
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-cache-directory
+        (expand-file-name (concat user-emacs-directory ".cache/"))
+        "Spacemacs storage area for persistent files")
+
+    #+END_SRC
+
+*** 定义变量 spacemacs-auto-save-directory
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-auto-save-directory
+        (expand-file-name (concat spacemacs-cache-directory "auto-save/"))
+        "Spacemacs auto-save directory")
+        
+    #+END_SRC
+
+*** 定义变量spacemacs-docs-directory 
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-docs-directory
+        (expand-file-name (concat spacemacs-start-directory "doc/"))
+        "Spacemacs documentation directory.")
+
+    #+END_SRC
+
+***  定义变量spacemacs-news-directory 
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-news-directory
+        (expand-file-name (concat spacemacs-start-directory "news/"))
+        "Spacemacs News directory.")
+    #+END_SRC
+
+*** 定义变量spacemacs-assets-directory
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-assets-directory
+        (expand-file-name (concat spacemacs-start-directory "assets/"))
+        "Spacemacs assets directory.")
+
+    #+END_SRC
+
+*** 定义变量spacemacs-test-directory
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst spacemacs-test-directory
+        (expand-file-name (concat spacemacs-start-directory "tests/"))
+        "Spacemacs tests directory.")
+    #+END_SRC
+
+*** 定义常量 user-home-directory
+
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst user-home-directory
+        (expand-file-name "~/")
+        "User home directory (~/).")
+    #+END_SRC
+
+*** 定义常量 pcache-directory
+
+    #+BEGIN_SRC emacs-lisp
+      (defconst pcache-directory
+        (concat spacemacs-cache-directory "pcache/"))
+    #+END_SRC
+
+*** 如果不存在spacemacs-cache-directory,创建目录
+
+    #+BEGIN_SRC emacs-lisp
+      (unless (file-exists-p spacemacs-cache-directory)
+        (make-directory spacemacs-cache-directory))
+    #+END_SRC
+
+*** 加载部分路径
+
+    #+BEGIN_SRC emacs-lisp
+      mapc 'add-to-load-path
+      `(
+        ,spacemacs-core-directory
+        ,(concat spacemacs-core-directory "libs/")
+        ,(concat spacemacs-core-directory "libs/spacemacs-theme/")
+        ;; ,(concat spacemacs-core-directory "aprilfool/")
+        ))
+    #+END_SRC
+
+
+
+
+
+
+
+
+

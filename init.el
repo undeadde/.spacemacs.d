@@ -53,7 +53,7 @@ values."
               chinese-default-input-method 'Chinese-pyim
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t
-              chinese-enable-avy-pinyin nil)
+              chinese-enable-avy-pinyin t)
      emacs-lisp
      git
      markdown
