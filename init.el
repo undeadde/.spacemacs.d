@@ -45,23 +45,23 @@ values."
                       auto-completion-enable-snippets-in-popup t
                       auto-completion-enable-help-tooltip t)
      better-defaults
-     cscope
-     helm
-     html
+     (c-c++ :variables
+            c-c++-default-mode-for-headers 'c++-mode
+            c-c++-en_X_able-clang-support t
+            )
      (chinese :packages  youdao-dictionary fcitx
               :variables
               chinese-default-input-method 'Chinese-pyim
               chinese-enable-fcitx t
               chinese-enable-youdao-dict t
               chinese-enable-avy-pinyin t)
+     cscope
      emacs-lisp
      git
+     helm
+     html
      markdown
      org
-     (c-c++ :variables
-            c-c++-default-mode-for-headers 'c++-mode
-            c-c++-enable-clang-support t
-            )
      (python :variables
              python-test-runner '(pytest nose)
              python-enable-yapf-format-on-save t
@@ -340,7 +340,7 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (setq-default git-magit-status-fullscreen t)
   (setq magit-repository-directories '("~/piav2/" "~/.spacemacs.d"))
-  (global-git-commit-mode t)
+  ;; (global-git-commit-mode t)
 )
 
 (defun dotspacemacs/user-config ()

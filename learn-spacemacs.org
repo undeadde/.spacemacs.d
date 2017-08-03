@@ -187,6 +187,7 @@
 *** 加载部分路径
 
     #+BEGIN_SRC emacs-lisp
+      ;; load paths
       mapc 'add-to-load-path
       `(
         ,spacemacs-core-directory
@@ -194,13 +195,83 @@
         ,(concat spacemacs-core-directory "libs/spacemacs-theme/")
         ;; ,(concat spacemacs-core-directory "aprilfool/")
         ))
+
+      ;; themes
+      (add-to-list 'custom-theme-load-path (concat spacemacs-core-directory
+                                                   "libs/spacemacs-theme/"))
     #+END_SRC
 
+** TODO 加载 core-spacemacs 模块
 
+   #+BEGIN_SRC emacs-lisp
+     (require 'core-spacemacs)
+   #+END_SRC
 
+*** 设置日志大小
+    #+BEGIN_SRC emacs-lisp
+    (setq message-log-max 16384)
+    #+END_SRC
 
+*** 定义常量 emacs-start-time
+    #+BEGIN_SRC 
+    (defconst emacs-start-time (current-time))
+    #+END_SRC
 
+*** 加载模块 subr-x
+*** 加载模块 page-break-lines
+*** 加载模块 core-debug
+*** 加载模块 core-command-line
+*** 加载模块 core-dotspacemacs
+*** 加载模块 core-release-management
+*** 加载模块 core-auto-completion
+*** 加载模块 core-jump
+*** 加载模块 core-display-init
+*** 加载模块 core-themes-support
+*** 加载模块 core-fonts-support
+*** 加载模块 core-spacemacs-buffer
+*** 加载模块 core-keybindings
+*** 加载模块 core-toggle
+*** 加载模块 core-funcs
+*** 加载模块 core-micro-state
+*** 加载模块 core-transient-state
+*** 加载模块 core-use-package-ext
 
+** TODO 调用 spacemacs/init
 
+   #+BEGIN_SRC emacs-lisp
+     (spacemacs/init)
+   #+END_SRC
 
+** TODO 调用 configuration-layer/sync　
 
+   #+BEGIN_SRC emacs-lisp
+
+     (configuration-layer/sync)
+   #+END_SRC
+
+** TODO 调用 spacemacs-buffer/display-startup-note
+
+   #+BEGIN_SRC emacs-lisp
+
+     (spacemacs-buffer/display-startup-note)
+   #+END_SRC
+
+** TODO 调用 spacemacs/setup-startup-hook
+
+   #+BEGIN_SRC emacs-lisp
+
+     (spacemacs/setup-startup-hook)
+   #+END_SRC
+
+** TODO 加载模块 server
+
+   #+BEGIN_SRC emacs-lisp
+
+     (require 'server)
+   #+END_SRC
+
+** TODO 启动 server-start
+
+   #+BEGIN_SRC emacs-lisp
+     (unless (server-running-p) (server-start)))
+   #+END_SRC
