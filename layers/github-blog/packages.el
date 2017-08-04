@@ -58,5 +58,5 @@ Each entry is either:
       - A list beginning with the symbol `recipe' is a melpa
         recipe.  See: https://github.com/milkypostman/melpa#recipe-format")
 
-
+(defvar spacemacs-github-blog-path "~/gh/undeadde.github.io")
 ;;; packages.el ends here

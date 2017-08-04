@@ -7,6 +7,8 @@
 * Table of Contents                                        :TOC_4_gh:noexport:
 - [[#description][Description]]
 - [[#install][Install]]
+  - [[#install-nikola][install Nikola]]
+  -  [[#][]]
 - [[#key-bindings][Key bindings]]
 
 * Description
@@ -18,6 +20,9 @@ To use this configuration layer, add it to your =~/.spacemacs=. You will need to
 add =github-blog= to the existing =dotspacemacs-configuration-layers= list in this
 file.
 
+** install Nikola
+
+**  
 * Key bindings
 
 | Key Binding | Description    |
