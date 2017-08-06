@@ -431,5 +431,7 @@ you should place your code here."
 ;; use American English as ispell default dictionary
 (ispell-change-dictionary "american" t)
 
+(delete-selection-mode t)
+
 (setq custom-file (expand-file-name "custom.el" dotspacemacs-directory))
 (load custom-file 'no-error 'no-message)
